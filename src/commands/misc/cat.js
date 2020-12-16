@@ -18,7 +18,10 @@ exports.run = async (message, res) => {
                 {
                   title: 'Teste',
                   description: `safsaf`,
-                  color: Math.floor(Math.random() * 0xffffff)
+                  color: Math.floor(Math.random() * 0xffffff),
+                  image: {
+                    url: post.data.url,
+                  },
                 },
             ],
         }
