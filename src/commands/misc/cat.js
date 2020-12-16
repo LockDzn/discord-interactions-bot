@@ -21,7 +21,7 @@ exports.run = async (message, res) => {
                         url: post.data.url,
                     },
                     footer: {
-                        text: 'r/cats - '
+                        text: `Posted by u/${post.data.author} - r/cats`
                     }
                 },
             ],
