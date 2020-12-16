@@ -25,7 +25,7 @@ async function registerCommand() {
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const signature = req.get('X-Signature-Ed25519');
   const timestamp = req.get('X-Signature-Timestamp');
-  const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, 'MY_CLIENT_PUBLIC_KEY');
+  const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, process.env.CLIENT_PUBLIC_KEY);
   if (!isValidRequest) {
     return res.status(401).end('Bad request signature');
   }
