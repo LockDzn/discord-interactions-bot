@@ -41,7 +41,7 @@ async function registerCommand() {
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const interaction = req.body;
-  console.log(interaction)
+  // console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
     if (interaction.data.name == 'ping') {
       res.send({
@@ -54,6 +54,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
     }
 
     if (interaction.data.name == 'dice') {
+      console.log(interaction.data.options)
       res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
