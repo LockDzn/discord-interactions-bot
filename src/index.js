@@ -14,6 +14,7 @@ const port = process.env.PORT || 3999;
 const app = express();
 
 async function registerCommand() {
+  console.log('foi?!')
   await discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
     name: 'ping',
     description: 'Command to return bot status',
