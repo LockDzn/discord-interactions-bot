@@ -1,5 +1,5 @@
 const express = require('express');
-const { InteractionType, InteractionResponseType, verifyKeyMiddleware } = require('discord-interactions');
+const { InteractionType, InteractionResponseType, verifyKeyMiddleware, verifyKey } = require('discord-interactions');
 
 const port = process.env.PORT || 3999;
 
@@ -29,6 +29,13 @@ async function handleCommand(data, res) {
 }
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), (req, res) => {
+  const signature = req.get('X-Signature-Ed25519');
+  const timestamp = req.get('X-Signature-Timestamp');
+  const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, 'MY_CLIENT_PUBLIC_KEY');
+  if (!isValidRequest) {
+    return res.status(401).end('Bad request signature');
+  }
+
   const interaction = req.body;
   if (interaction.type === InteractionType.COMMAND) {
     handleCommand(interaction.data, res);
