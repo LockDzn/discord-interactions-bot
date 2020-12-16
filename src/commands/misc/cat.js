@@ -16,7 +16,7 @@ exports.run = async (message, res) => {
             content: `<@${message.member.user.id}>`,
             embeds: [
                 {
-                    description: `[:cat: Post](https://www.reddit.com/${post.data.permalink})`,
+                    description: `[:cat:](https://www.reddit.com/${post.data.permalink})`,
                     image: {
                         url: post.data.url,
                     },
