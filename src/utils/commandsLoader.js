@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-module.exports = client => {
-    client.commands = new Map();
-    client.aliases = new Map();
+module.exports = () => {
+    const commands = new Map();
+    const aliases = new Map();
 
     fs.readdir("./commands", (err, files) => {
         if(err) console.error(err);
@@ -26,4 +26,6 @@ module.exports = client => {
             })
         })
     });
+
+    return { commands, aliases }
 }
