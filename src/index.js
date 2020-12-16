@@ -28,7 +28,7 @@ async function handleCommand(data, res) {
   }
 }
 
-app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), (req, res) => {
+app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const signature = req.get('X-Signature-Ed25519');
   const timestamp = req.get('X-Signature-Timestamp');
   const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, 'MY_CLIENT_PUBLIC_KEY');
@@ -37,6 +37,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), (r
   }
 
   const interaction = req.body;
+  console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
     handleCommand(interaction.data, res);
   }
