@@ -1,3 +1,5 @@
+const { InteractionResponseType } = require('discord-interactions');
+
 exports.run = async (interaction, res) => {
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
