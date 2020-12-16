@@ -36,5 +36,5 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
-    registerCommand()
+    // registerCommand()
 });

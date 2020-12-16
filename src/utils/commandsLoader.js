@@ -3,6 +3,8 @@ const fs = require('fs');
 const commands = new Map();
 const aliases = new Map();
 
+const discordAPI = require('./discordAPI')
+
 fs.readdir("./src/commands", (err, files) => {
     if(err) console.error(err);
 
@@ -22,6 +24,12 @@ fs.readdir("./src/commands", (err, files) => {
                 props.help.type = f;
 
                 commands.set(props.help.name, props);
+
+                discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+                    name: props.help.name,
+                    description: props.help.description,
+                    options: props.help.options
+                }).then((res) => console.log(`${props.help.name} loaded!`))
 
                 if(!props.help || !props.help.aliases || props.help.aliases[0] == '') return;
 
