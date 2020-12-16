@@ -31,6 +31,10 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
     if (message && message.type === InteractionType.COMMAND) {
         const command = commands.commands.get(message.data.name) ||
         commands.commands.get(commands.aliases.get(message.data.name));
+
+        if(!command) return;
+
+        command.run(message, res);
     }
 });
 
