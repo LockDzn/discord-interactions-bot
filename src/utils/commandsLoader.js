@@ -3,7 +3,7 @@ const fs = require('fs');
 const commands = new Map();
 const aliases = new Map();
 
-fs.readdir("./commands", (err, files) => {
+fs.readdir("./src/commands", (err, files) => {
     if(err) console.error(err);
 
     files.forEach((f, i) => {
@@ -11,7 +11,7 @@ fs.readdir("./commands", (err, files) => {
 
         if(folder[1]) return;
 
-        fs.readdir(`./commands/${f}/`, (err, jsf) => {
+        fs.readdir(`./src/commands/${f}/`, (err, jsf) => {
 
             let jsfiles = jsf.filter(f => f.split(".").pop() === "js");
 
