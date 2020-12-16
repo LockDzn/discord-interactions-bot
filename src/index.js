@@ -1,6 +1,8 @@
 const express = require('express');
 const { InteractionType, InteractionResponseType, verifyKeyMiddleware } = require('discord-interactions');
 
+const port = process.env.PORT || 3999;
+
 const app = express();
 
 app.get('/', (req, res) => {
@@ -19,6 +21,6 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), (r
   }
 });;
 
-app.listen(8999, () => {
-  console.log('Example app listening at http://localhost:8999');
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`);
 });
