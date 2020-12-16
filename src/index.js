@@ -27,7 +27,7 @@ async function registerCommand() {
       options: [{
         'name': 'maxnumber',
         'description': 'Maximum number that the data can reach',
-        'type': 2 // 2 is type SUB_COMMAND_GROUP
+        'type': 4
       }]
     }).then((res) => {
       console.log(res.data)
