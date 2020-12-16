@@ -25,10 +25,12 @@ async function registerCommand() {
       name: 'dice',
       description: 'Roll a dice',
       options: [{
-        'name': 'max-number',
+        'name': 'maxnumber',
         'description': 'Maximum number that the data can reach',
         'type': 2 // 2 is type SUB_COMMAND_GROUP
       }]
+    }).then((res) => {
+      console.log(res.data)
     })
     
     console.log('foi?!')
