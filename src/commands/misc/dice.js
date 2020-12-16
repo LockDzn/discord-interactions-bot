@@ -30,7 +30,7 @@ function randomNumber(max) {
 
 exports.help = {
     name: 'dice',
-    alias: ['dado'],
+    aliases: ['dado'],
     description: 'Maximum number that the data can reach',
     options: [{
         name: 'maxnumber',
