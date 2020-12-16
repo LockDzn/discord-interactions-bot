@@ -39,13 +39,12 @@ async function registerCommand() {
 
 const commands = require('./utils/commandsLoader')
 
-console.log(commands.commands.get('ping'))
-
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const interaction = req.body;
   // console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
     if (interaction.data.name == 'ping') {
+      commands.commands.get('ping')
       res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
