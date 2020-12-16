@@ -25,9 +25,9 @@ async function registerCommand() {
       name: 'dice',
       description: 'Roll a dice',
       options: [{
-        'name': 'maxnumber',
-        'description': 'Maximum number that the data can reach',
-        'type': 4
+        name: 'maxnumber',
+        description: 'Maximum number that the data can reach',
+        type: 4,
       }]
     }).then((res) => {
       console.log(res.data)
@@ -54,14 +54,25 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
     }
 
     if (interaction.data.name == 'dice') {
-      console.log(interaction.data.options)
-      res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: `<@${interaction.member.user.id}>, pong! :ping_pong:`,
-          flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
-        }
-      })
+      const options = interaction.data.options;
+
+      if (!options) {
+        res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: `<@${interaction.member.user.id}>, ${randomNumber()} :game_die:`,
+            flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+          }
+        })
+      } else {
+        res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: `<@${interaction.member.user.id}>, ${randomNumber(options[0].value)} :game_die:`,
+            flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+          }
+        })
+      }
     }
   }
 });
@@ -70,3 +81,9 @@ app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
   registerCommand()
 });
+
+function randomNumber(max) {
+  const result = max ? Math.floor(Math.random() * max) : Math.floor(Math.random() * 20);
+
+  return result + 1;
+}
