@@ -15,13 +15,13 @@ const app = express();
 
 async function registerCommand() {
   try {
-    discordAPI.post(`/applications/${process.env.CLIENT_ID}/guilds/${process.env.GUILD_ID}/commands`, {
+    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
       name: 'ping',
       description: 'Command to return bot status',
       options: []
     })
   
-    discordAPI.post(`/applications/${process.env.CLIENT_ID}/guilds/${process.env.GUILD_ID}/commands`, {
+    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
       name: 'dice',
       description: 'Roll a dice',
       options: [{
