@@ -39,7 +39,7 @@ async function registerCommand() {
 
 const commands = require('./utils/commandsLoader')
 
-console.log(commands)
+console.log(commands.commands.get('ping'))
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const interaction = req.body;
