@@ -44,16 +44,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
   // console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
     if (interaction.data.name == 'ping') {
-      
-      console.log(commands.commands.get('ping'))
-
-      res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: `<@${interaction.member.user.id}>, pong! :ping_pong:`,
-          flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
-        }
-      })
+      commands.commands.get('ping').run();
     }
 
     if (interaction.data.name == 'dice') {
