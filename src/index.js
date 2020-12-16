@@ -27,10 +27,8 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
     const message = req.body;
     console.log(message)
     if (message && message.type === InteractionType.COMMAND) {
-        return
-        // const command = commands.commands.get(command.slice(prefix.length)) ||
-        // client.commands.get(client.aliases.get(command.slice(prefix.length)));
-        
+        const command = commands.commands.get(message.data.name) ||
+        commands.commands.get(commands.aliases.get(message.data.name));
     }
 });
 
