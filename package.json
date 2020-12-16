@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.0",
     "discord-interactions": "^1.4.1",
     "express": "^4.17.1"
   },
