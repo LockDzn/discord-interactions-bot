@@ -8,7 +8,7 @@ exports.run = async (message, res) => {
 
     const post = imgPosts[Math.floor(Math.random() * imgPosts.length)]
 
-    console.log(post.data.url)
+    console.log(post.data)
 
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -17,8 +17,7 @@ exports.run = async (message, res) => {
             embeds: [
                 {
                   title: 'Teste',
-                  description: `safsaf`,
-                  color: Math.floor(Math.random() * 0xffffff),
+                  color: `0xEABC0C`,
                   image: {
                     url: post.data.url,
                   },
