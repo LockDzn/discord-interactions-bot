@@ -1,83 +1,46 @@
 const express = require('express');
-const axios = require('axios');
 const { InteractionType, InteractionResponseType, verifyKeyMiddleware, verifyKey } = require('discord-interactions');
 
-const discordAPI = axios.create({
-  baseURL: 'https://discord.com/api/v8',
-  headers: {
-    'authorization': `Bot ${process.env.DISCORD_BOT_TOKEN}`
-  }
-})
+const commands = require('./utils/commandsLoader')
 
 const port = process.env.PORT || 3999;
 
 const app = express();
 
 async function registerCommand() {
-  try {
-    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
-      name: 'ping',
-      description: 'Command to return bot status',
-      options: []
-    })
-  
-    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
-      name: 'dice',
-      description: 'Roll a dice',
-      options: [{
-        name: 'maxnumber',
-        description: 'Maximum number that the data can reach',
-        type: 4,
-      }]
-    })
+    try {
+        commands.commands.forEach(cmd => {
+            discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+                name: cmd.help.name,
+                description: cmd.help.description,
+                options: cmd.help.options
+            }).then((res) => console.log(`${cmd.help.name} loaded!`))
+        })
     
-    console.log('foi?!')
-  } catch (error) {
-    console.error(error)
-  }
+        console.log('foi?!')
+    } catch (error) {
+        console.error(error)
+    }
 }
 
-const commands = require('./utils/commandsLoader')
-
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
-  const message = req.body;
-  // console.log(message)
-  if (message.type === InteractionType.COMMAND) {
-    if (message.data.name == 'ping') {
-      commands.commands.get('ping').run(message, res);
+    const message = req.body;
+    console.log(message)
+    if (message && message.type === InteractionType.COMMAND) {
+        return
+        // const command = commands.commands.get(command.slice(prefix.length)) ||
+        // client.commands.get(client.aliases.get(command.slice(prefix.length)));
+        
     }
-
-    if (message.data.name == 'dice') {
-      const options = message.data.options;
-
-      if (!options) {
-        res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: `<@${message.member.user.id}>, ${randomNumber()} :game_die:`,
-            flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
-          }
-        })
-      } else {
-        res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: `<@${message.member.user.id}>, ${randomNumber(options[0].value)} :game_die:`,
-            flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
-          }
-        })
-      }
-    }
-  }
 });
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-  registerCommand()
+    console.log(`App listening at http://localhost:${port}`);
+    registerCommand()
 });
 
 function randomNumber(max) {
-  const result = max ? Math.floor(Math.random() * max) : Math.floor(Math.random() * 20);
+    const result = max ? Math.floor(Math.random() * max) : Math.floor(Math.random() * 20);
 
-  return result + 1;
+    return result + 1;
 }
