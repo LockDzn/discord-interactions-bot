@@ -44,7 +44,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
   // console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
     if (interaction.data.name == 'ping') {
-      commands.commands.get('ping').run();
+      commands.commands.get('ping').run(interaction, res);
     }
 
     if (interaction.data.name == 'dice') {
