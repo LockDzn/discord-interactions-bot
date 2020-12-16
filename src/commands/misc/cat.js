@@ -13,7 +13,14 @@ exports.run = async (message, res) => {
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-            content: `<@${message.member.user.id}>`
+            content: `<@${message.member.user.id}>`,
+            embeds: [
+                {
+                  title: 'Teste',
+                  description: `safsaf`,
+                  color: Math.floor(Math.random() * 0xffffff)
+                },
+            ],
         }
     });
 }
