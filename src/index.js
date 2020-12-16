@@ -29,8 +29,6 @@ async function registerCommand() {
         description: 'Maximum number that the data can reach',
         type: 4,
       }]
-    }).then((res) => {
-      console.log(res.data)
     })
     
     console.log('foi?!')
@@ -38,6 +36,11 @@ async function registerCommand() {
     console.error(error)
   }
 }
+
+let client;
+require('./utils/commandsLoader')(client);
+
+console.log(client)
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
   const interaction = req.body;
