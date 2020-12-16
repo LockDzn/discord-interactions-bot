@@ -15,6 +15,7 @@ exports.run = async (message, res) => {
             embeds: [
                 {
                     description: `[:cat:](https://www.reddit.com${post.data.permalink})`,
+                    color: 0xFFA900,
                     image: {
                         url: post.data.url,
                     },
