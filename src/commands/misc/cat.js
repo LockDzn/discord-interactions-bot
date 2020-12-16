@@ -17,7 +17,7 @@ exports.run = async (message, res) => {
             embeds: [
                 {
                   title: 'Teste',
-                  color: `0xEABC0C`,
+                  color: `0xffffff`, //0xEABC0C
                   image: {
                     url: post.data.url,
                   },
