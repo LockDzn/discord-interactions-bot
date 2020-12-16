@@ -8,7 +8,7 @@ exports.run = async (message, res) => {
 
     const post = imgPosts[Math.floor(Math.random() * imgPosts.length)]
 
-    console.log(post.data.url)
+    console.log(post.data)
 
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -16,9 +16,13 @@ exports.run = async (message, res) => {
             content: `<@${message.member.user.id}>`,
             embeds: [
                 {
-                  image: {
-                    url: post.data.url,
-                  },
+                    description: ':cat:',
+                    image: {
+                        url: post.data.url,
+                    },
+                    footer: {
+                        text: 'r/cats - '
+                    }
                 },
             ],
         }
