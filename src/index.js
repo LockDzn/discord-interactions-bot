@@ -34,8 +34,8 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
       res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `pong! :ping_pong:`,
-          flags: InteractionResponseType.PONG
+          content: `<@${interaction.member.user.id}> pong! :ping_pong:`,
+          flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
         }
       })
     }
