@@ -8,8 +8,10 @@ exports.run = async (message, res) => {
 
     const post = imgPosts[Math.floor(Math.random() * imgPosts.length)]
 
+    console.log(post.data.url)
+
     res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        type: InteractionResponseType.CHANNEL_MESSAGE,
         data: {
             embeds: [{
                 title: 'Kitten :cat:',
