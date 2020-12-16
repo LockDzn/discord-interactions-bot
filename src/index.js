@@ -1,6 +1,7 @@
 const express = require('express');
 const { InteractionType, InteractionResponseType, verifyKeyMiddleware, verifyKey } = require('discord-interactions');
 
+const discordAPI = require('./utils/discordAPI')
 const commands = require('./utils/commandsLoader')
 
 const port = process.env.PORT || 3999;
@@ -36,9 +37,3 @@ app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
     registerCommand()
 });
-
-function randomNumber(max) {
-    const result = max ? Math.floor(Math.random() * max) : Math.floor(Math.random() * 20);
-
-    return result + 1;
-}

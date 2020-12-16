@@ -22,6 +22,12 @@ exports.run = async (message, res) => {
     }
 }
 
+function randomNumber(max) {
+    const result = max ? Math.floor(Math.random() * max) : Math.floor(Math.random() * 20);
+
+    return result + 1;
+}
+
 exports.help = {
     name: 'dice',
     description: 'Maximum number that the data can reach',
