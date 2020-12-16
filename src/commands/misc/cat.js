@@ -13,13 +13,11 @@ exports.run = async (message, res) => {
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
+            content: `<@${message.member.user.id}>`,
             embeds: [{
                 title: 'Kitten :cat:',
                 description: `Kitten:`,
-                color: '#eead2d',
-                image: {
-                    url: post.data.url,
-                },
+                color: '#eead2d'
             }],
         }
     });
