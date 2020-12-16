@@ -8,8 +8,6 @@ exports.run = async (message, res) => {
 
     const post = imgPosts[Math.floor(Math.random() * imgPosts.length)]
 
-    console.log(post)
-
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
