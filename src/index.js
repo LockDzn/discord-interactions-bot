@@ -11,6 +11,7 @@ const app = express();
 async function registerCommand() {
     try {
         commands.commands.forEach(cmd => {
+            console.log(cmd.help.name)
             discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
                 name: cmd.help.name,
                 description: cmd.help.description,
