@@ -19,10 +19,16 @@ async function registerCommand() {
     name: 'ping',
     description: 'Command to return bot status',
     options: []
-  }).then((data) => {
-    console.log(data)
-  }).catch((err) => {
-    console.log(err.response)
+  })
+
+  discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+    name: 'dice',
+    description: 'Roll a dice',
+    options: [{
+      'name': 'max-number',
+      'description': 'Maximum number that the data can reach',
+      'type': 2 // 2 is type SUB_COMMAND_GROUP
+    }]
   })
 }
 
@@ -30,11 +36,21 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
   const interaction = req.body;
   console.log(interaction)
   if (interaction.type === InteractionType.COMMAND) {
-    if (interaction.data.name == "ping") {
+    if (interaction.data.name == 'ping') {
       res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `<@${interaction.member.user.id}> pong! :ping_pong:`,
+          content: `<@${interaction.member.user.id}>, pong! :ping_pong:`,
+          flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+        }
+      })
+    }
+
+    if (interaction.data.name == 'dice') {
+      res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `<@${interaction.member.user.id}>, pong! :ping_pong:`,
           flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
         }
       })
