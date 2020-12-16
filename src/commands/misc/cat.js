@@ -11,16 +11,17 @@ exports.run = async (message, res) => {
     console.log(post.data.url)
 
     res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE,
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
             embeds: [{
                 title: 'Kitten :cat:',
+                description: `Kitten:`,
                 color: '#eead2d',
                 image: {
                     url: post.data.url,
                 },
             }],
-        },
+        }
     });
 }
 
