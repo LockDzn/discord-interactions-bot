@@ -35,7 +35,14 @@ fs.readdir("./src/commands", (err, files) => {
 
                 props.help.aliases.forEach(alias => {
                     aliases.set(alias, props.help.name);
+                    
+                    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+                        name: alias,
+                        description: props.help.description,
+                        options: props.help.options
+                    }).then((res) => console.log(`${alias} loaded!`))
                 })
+
             });
         })
     })
