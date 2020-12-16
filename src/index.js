@@ -14,22 +14,27 @@ const port = process.env.PORT || 3999;
 const app = express();
 
 async function registerCommand() {
-  console.log('foi?!')
-  discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
-    name: 'ping',
-    description: 'Command to return bot status',
-    options: []
-  })
-
-  discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
-    name: 'dice',
-    description: 'Roll a dice',
-    options: [{
-      'name': 'max-number',
-      'description': 'Maximum number that the data can reach',
-      'type': 2 // 2 is type SUB_COMMAND_GROUP
-    }]
-  })
+  try {
+    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+      name: 'ping',
+      description: 'Command to return bot status',
+      options: []
+    })
+  
+    discordAPI.post(`/applications/${process.env.CLIENT_ID}/commands`, {
+      name: 'dice',
+      description: 'Roll a dice',
+      options: [{
+        'name': 'max-number',
+        'description': 'Maximum number that the data can reach',
+        'type': 2 // 2 is type SUB_COMMAND_GROUP
+      }]
+    })
+    
+    console.log('foi?!')
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
