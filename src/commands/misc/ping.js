@@ -1,10 +1,10 @@
 const { InteractionResponseType } = require('discord-interactions');
 
-exports.run = async (interaction, res) => {
+exports.run = async (message, res) => {
     res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `<@${interaction.member.user.id}>, pong! :ping_pong:`,
+          content: `<@${message.member.user.id}>, pong! :ping_pong:`,
           flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
         }
     })

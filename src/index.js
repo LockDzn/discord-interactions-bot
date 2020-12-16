@@ -40,21 +40,21 @@ async function registerCommand() {
 const commands = require('./utils/commandsLoader')
 
 app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), async (req, res) => {
-  const interaction = req.body;
-  // console.log(interaction)
-  if (interaction.type === InteractionType.COMMAND) {
-    if (interaction.data.name == 'ping') {
-      commands.commands.get('ping').run(interaction, res);
+  const message = req.body;
+  // console.log(message)
+  if (message.type === InteractionType.COMMAND) {
+    if (message.data.name == 'ping') {
+      commands.commands.get('ping').run(message, res);
     }
 
-    if (interaction.data.name == 'dice') {
-      const options = interaction.data.options;
+    if (message.data.name == 'dice') {
+      const options = message.data.options;
 
       if (!options) {
         res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: `<@${interaction.member.user.id}>, ${randomNumber()} :game_die:`,
+            content: `<@${message.member.user.id}>, ${randomNumber()} :game_die:`,
             flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
           }
         })
@@ -62,7 +62,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), as
         res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: `<@${interaction.member.user.id}>, ${randomNumber(options[0].value)} :game_die:`,
+            content: `<@${message.member.user.id}>, ${randomNumber(options[0].value)} :game_die:`,
             flags: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
           }
         })
